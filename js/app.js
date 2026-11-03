@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const input = document.getElementById("todo-input");
   const errorMsg = document.getElementById("error-msg");
   const counter = document.getElementById("counter");
+  const filters = document.getElementsByClassName("filters")[0];
 
   function updateCounter() {
     let itemCount = 0
@@ -56,5 +57,31 @@ document.addEventListener("DOMContentLoaded", (event) => {
       target.parentElement.classList.toggle("completed");
       updateCounter();
     }
-  })
+  });
+
+  filters.addEventListener("click", e => {
+    let target = e.target;
+    if (target.id === "filter-active") {
+      Array.from(todoList.children).forEach(item => {
+        console.log(item);
+        if (item.classList.contains("completed")) {
+          item.style.display = "none";
+        } else {
+          item.style.display = "";
+        }
+      });
+    } else if (target.id === "filter-done") {
+      Array.from(todoList.children).forEach(item => {
+        if (!item.classList.contains("completed")) {
+          item.style.display = "none";
+        } else {
+          item.style.display = "";
+        }
+      });
+    } else if (target.id === "filter-all") {
+      Array.from(todoList.children).forEach(item => {
+          item.style.display = "";
+      });
+    }
+  });
 });
