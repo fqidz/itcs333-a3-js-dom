@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       updateCounter();
     } else if (target.classList.contains("item-text")) {
       target.parentElement.classList.toggle("completed");
+      updateCounter();
     }
   })
 });
