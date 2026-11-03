@@ -62,26 +62,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
   filters.addEventListener("click", e => {
     let target = e.target;
     if (target.id === "filter-active") {
-      Array.from(todoList.children).forEach(item => {
-        console.log(item);
+      for (let item of todoList.children) {
         if (item.classList.contains("completed")) {
           item.style.display = "none";
         } else {
           item.style.display = "";
         }
-      });
+      }
     } else if (target.id === "filter-done") {
-      Array.from(todoList.children).forEach(item => {
+      for (let item of todoList.children) {
         if (!item.classList.contains("completed")) {
           item.style.display = "none";
         } else {
           item.style.display = "";
         }
-      });
+      }
     } else if (target.id === "filter-all") {
-      Array.from(todoList.children).forEach(item => {
+      for (let item of todoList.children) {
           item.style.display = "";
-      });
+      }
     }
   });
 });
