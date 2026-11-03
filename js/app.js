@@ -11,16 +11,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const counter = document.getElementById("counter");
   const filters = document.getElementsByClassName("filters")[0];
 
-  function updateCounter() {
-    let itemCount = 0
-    Array.from(todoList.children).forEach(e => {
-      if (!e.classList.contains("completed")) {
-        itemCount += 1;
-      }
-    });
-    counter.textContent = `${itemCount} items left`;
-  }
-
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (input.value.trim() === "") {
@@ -62,25 +52,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
   filters.addEventListener("click", e => {
     let target = e.target;
     if (target.id === "filter-active") {
-      for (let item of todoList.children) {
+      Array.from(todoList.children).forEach(item => {
         if (item.classList.contains("completed")) {
           item.style.display = "none";
         } else {
           item.style.display = "";
         }
-      }
+      });
     } else if (target.id === "filter-done") {
-      for (let item of todoList.children) {
+      Array.from(todoList.children).forEach(item => {
         if (!item.classList.contains("completed")) {
           item.style.display = "none";
         } else {
           item.style.display = "";
         }
-      }
+      });
     } else if (target.id === "filter-all") {
-      for (let item of todoList.children) {
+      Array.from(todoList.children).forEach(item => {
           item.style.display = "";
-      }
+      });
     }
   });
+
+  function updateCounter() {
+    let itemCount = 0
+    Array.from(todoList.children).forEach(e => {
+      if (!e.classList.contains("completed")) {
+        itemCount += 1;
+      }
+    });
+    counter.textContent = `${itemCount} items left`;
+  }
+
 });
