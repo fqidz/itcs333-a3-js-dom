@@ -4,21 +4,25 @@
 // using event delegation on #todo-list.
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  let itemCount = 0;
   const form = document.getElementById("todo-form");
   const todoList = document.getElementById("todo-list");
   const input = document.getElementById("todo-input");
   const errorMsg = document.getElementById("error-msg");
   const counter = document.getElementById("counter");
 
-  function updateCounter(addAmount) {
-    itemCount += addAmount;
+  function updateCounter() {
+    let itemCount = 0
+    Array.from(todoList.children).forEach(e => {
+      if (!e.classList.contains("completed")) {
+        itemCount += 1;
+      }
+    });
     counter.textContent = `${itemCount} items left`;
   }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (input.value === "") {
+    if (input.value.trim() === "") {
       errorMsg.classList.remove("hidden");
       return;
     } else {
@@ -37,16 +41,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     li.appendChild(deleteButton);
 
     todoList.appendChild(li);
-    updateCounter(1);
+    updateCounter();
   })
 
   todoList.addEventListener("click", (e) => {
     let target = e.target;
     if (target.classList.contains("delete-btn")) {
       target.parentElement.remove();
-    updateCounter(-1);
+      updateCounter();
     } else if (target.tagName.toLowerCase() === "li") {
       target.classList.toggle("completed");
+      updateCounter();
     } else if (target.classList.contains("item-text")) {
       target.parentElement.classList.toggle("completed");
     }
